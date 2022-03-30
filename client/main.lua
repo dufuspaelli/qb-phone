@@ -1362,6 +1362,7 @@ RegisterNUICallback("TakePhoto", function(data,cb)
                 if hook then
                     exports['screenshot-basic']:requestScreenshotUpload(tostring(hook), "files[]", function(data)
                         local image = json.decode(data)
+                        
                         DestroyMobilePhone()
                         CellCamActivate(false, false)
                         TriggerServerEvent('qb-phone:server:addImageToGallery', image.attachments[1].proxy_url)
