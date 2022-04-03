@@ -1955,6 +1955,10 @@ RegisterNetEvent('qb-phone:client:AddNewSuggestion', function(SuggestionData)
     TriggerServerEvent('qb-phone:server:SetPhoneAlerts', "phone", Config.PhoneApplications["phone"].Alerts)
 end)
 
+RegisterNetEvent('qb-phone:client:AddNewSuggestionOnline', function(SuggestionData)
+    PhoneData.SuggestedContacts[#PhoneData.SuggestedContacts+1] = SuggestionData
+end)
+
 RegisterNetEvent('qb-phone:client:UpdateHashtags', function(Handle, msgData)
     if PhoneData.Hashtags[Handle] ~= nil then
         PhoneData.Hashtags[Handle].messages[#PhoneData.Hashtags[Handle].messages+1] = msgData

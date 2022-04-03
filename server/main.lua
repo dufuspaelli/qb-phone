@@ -174,6 +174,31 @@ QBCore.Functions.CreateCallback('qb-phone:server:GetPhoneData', function(source,
             PhoneData.PlayerContacts = result
         end
 
+        local result2 = MySQL.Sync.fetchAll('SELECT * FROM players ORDER BY name ASC', {Player.PlayerData.citizenid})
+        local status = false
+        local contactList = {}
+        if result2[1] ~= nil then
+            for k, v in pairs(result2) do
+                v.status = GetOnlineStatus(json.decode(v.charinfo).phone)
+                status = GetOnlineStatus(json.decode(v.charinfo).phone)
+                if status then 
+                    print("triggered")
+                    
+                    local data = json.decode(v.charinfo)
+                    
+                    if Player.PlayerData.charinfo.account ~= data.account then 
+                        data.bank = data.account
+                        data.name = { [1] = data.firstname, [2] = data.lastname }
+                        data.number = data.phone
+                        contactList[#contactList+1] = data
+                        TriggerClientEvent('qb-phone:client:AddNewSuggestionOnline', -1, data)
+                    end
+                end
+            end
+            --PhoneData.PlayerContacts = contactList
+            
+        end
+
         local invoices = MySQL.Sync.fetchAll('SELECT * FROM phone_invoices WHERE citizenid = ?', {Player.PlayerData.citizenid})
         if invoices[1] ~= nil then
             for k, v in pairs(invoices) do
