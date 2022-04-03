@@ -10,6 +10,7 @@ shared_scripts {
     'config.lua',
     '@qb-apartments/config.lua',
     '@qb-garages/config.lua',
+    'webhook.lua'
 }
 
 client_scripts {
