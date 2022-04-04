@@ -201,25 +201,24 @@ $(document).on('click', '#whatsapp-openedchat-send', function(e){
     }
 });
 
-$(document).on('keypress', function (e) {
+$(document).on('keyup', function (e) {
+    console.log(e)
     if (OpenedChatData.number !== null) {
+        
         if(e.which === 13){
-            var Message = $("#whatsapp-openedchat-message").val();
+            console.log("triggered")
+            e.preventDefault();
+            var Message = $("body > div.container.disableSelection > div > div.phone-application-container > div.whatsapp-app > div.whatsapp-openedchat > div.whatsapp-openedchat-input > div.emojionearea.emojionearea-inline.focused > div.emojionearea-editor").text();
 
             if (Message !== null && Message !== undefined && Message !== "") {
-                var clean = DOMPurify.sanitize(Message , {
-                    ALLOWED_TAGS: [],
-                    ALLOWED_ATTR: []
-                });
-                if (clean == '') clean = 'Hmm, I shouldn\'t be able to do this...'
                 $.post('https://qb-phone/SendMessage', JSON.stringify({
                     ChatNumber: OpenedChatData.number,
                     ChatDate: GetCurrentDateKey(),
-                    ChatMessage: clean,
+                    ChatMessage: Message,
                     ChatTime: FormatMessageTime(),
                     ChatType: "message",
                 }));
-                $("#whatsapp-openedchat-message").val("");
+                $("body > div.container.disableSelection > div > div.phone-application-container > div.whatsapp-app > div.whatsapp-openedchat > div.whatsapp-openedchat-input > div.emojionearea.emojionearea-inline.focused > div.emojionearea-editor").text("");
             } else {
                 QB.Phone.Notifications.Add("fab fa-whatsapp", "Whatsapp", "You can't send a empty message!", "#25D366", 1750);
             }
