@@ -202,11 +202,9 @@ $(document).on('click', '#whatsapp-openedchat-send', function(e){
 });
 
 $(document).on('keyup', function (e) {
-    console.log(e)
     if (OpenedChatData.number !== null) {
         
         if(e.which === 13){
-            console.log("triggered")
             e.preventDefault();
             var Message = $("body > div.container.disableSelection > div > div.phone-application-container > div.whatsapp-app > div.whatsapp-openedchat > div.whatsapp-openedchat-input > div.emojionearea.emojionearea-inline.focused > div.emojionearea-editor").text();
 

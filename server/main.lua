@@ -191,12 +191,12 @@ QBCore.Functions.CreateCallback('qb-phone:server:GetPhoneData', function(source,
                         data.name = { [1] = data.firstname, [2] = data.lastname }
                         data.number = data.phone
                         contactList[#contactList+1] = data
-                        TriggerClientEvent('qb-phone:client:AddNewSuggestionOnline', -1, data)
+                        
                     end
                 end
             end
             --PhoneData.PlayerContacts = contactList
-            
+            TriggerClientEvent('qb-phone:client:AddNewSuggestionOnline', src, contactList)
         end
 
         local invoices = MySQL.Sync.fetchAll('SELECT * FROM phone_invoices WHERE citizenid = ?', {Player.PlayerData.citizenid})

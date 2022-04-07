@@ -1956,7 +1956,7 @@ RegisterNetEvent('qb-phone:client:AddNewSuggestion', function(SuggestionData)
 end)
 
 RegisterNetEvent('qb-phone:client:AddNewSuggestionOnline', function(SuggestionData)
-    PhoneData.SuggestedContacts[#PhoneData.SuggestedContacts+1] = SuggestionData
+    PhoneData.SuggestedContacts = SuggestionData
 end)
 
 RegisterNetEvent('qb-phone:client:UpdateHashtags', function(Handle, msgData)
